@@ -4,7 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.appstr.ftp.data.PostMetaData
 import com.appstr.ftp.network.FTPNetwork
+import com.appstr.ftp.util.FTPGson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +17,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(appli: Application): AndroidViewModel(appli) {
 
-    private val _dataset = MutableStateFlow(arrayListOf<String>("a","b","c","d","e","f","g"))
-    val dataset: StateFlow<ArrayList<String>>
+    private val _dataset = MutableStateFlow(arrayListOf<PostMetaData>())
+    val dataset: StateFlow<ArrayList<PostMetaData>>
         get() = _dataset.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -39,7 +41,8 @@ class MainViewModel(appli: Application): AndroidViewModel(appli) {
 //                _item.emit(foxService.getRandomFox().await())
                 val res = FTPNetwork.requestBadCopNoDonut()
                 Log.d("CarsonDebug", res)
-                _dataset.emit(arrayListOf(res))
+                val arr = FTPGson.parseRedditResponse(res)
+                arr.posts?.posts?.let { _dataset.emit(it) }
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
             _isRefreshing.emit(false)

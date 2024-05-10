@@ -22,6 +22,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -61,6 +62,11 @@ fun FeedContainer(
 
     mainVM: MainViewModel = viewModel()
 ){
+
+    LaunchedEffect(Unit) {
+        mainVM.refresh()
+    }
+
     val isRefreshing by mainVM.isRefreshing.collectAsStateWithLifecycle()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -94,7 +100,7 @@ fun Feed(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         itemsIndexed(dataset){ p, d ->
-            FeedItem(p, parentWidth, d)
+            FeedItem(p, parentWidth, d.toString())
         }
     }
 }

@@ -64,20 +64,23 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     ksp(libs.hilt.android.compiler)
 
+    // Ktor (https://ktor.io/)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+
+    // Gson (https://github.com/google/gson)
+    implementation(libs.gson)
+
+    // Material
+    implementation(libs.material3)
+    implementation("androidx.compose.material:material")
+
     // Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
     // ExoPlayer
     implementation(libs.androidx.media3.exoplayer)
-
-    // Ktor
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-
-    // Material
-    implementation(libs.material3)
-    implementation("androidx.compose.material:material")
 
     // Flow.collectAsStateWithLifecycle()
     implementation(libs.androidx.lifecycle.runtime.compose)
