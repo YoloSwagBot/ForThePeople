@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+
+    // Hilt
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -47,18 +53,34 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
+
 
 dependencies {
 
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    ksp(libs.hilt.android.compiler)
 
     // Room
-
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     // ExoPlayer
+    implementation(libs.androidx.media3.exoplayer)
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+
+    // Material
+    implementation(libs.material3)
+    implementation("androidx.compose.material:material")
+
+    // Flow.collectAsStateWithLifecycle()
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
 
     implementation(libs.androidx.core.ktx)
@@ -71,12 +93,12 @@ dependencies {
     implementation(libs.androidx.material3)
 
 
-    testImplementation(libs.junit)
-
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+//    testImplementation(libs.junit)
+//
+//    androidTestImplementation(libs.androidx.junit)
+//    androidTestImplementation(libs.androidx.espresso.core)
+//    androidTestImplementation(platform(libs.androidx.compose.bom))
+//    androidTestImplementation(libs.androidx.ui.test.junit4)
+//    debugImplementation(libs.androidx.ui.tooling)
+//    debugImplementation(libs.androidx.ui.test.manifest)
 }
