@@ -13,14 +13,14 @@ import androidx.compose.ui.graphics.Color
 // ff80b2 : pink
 // fc3c3c : red
 val defaultPalette = listOf<Color>(
-    Color(0xFF000080),
-    Color(0xFF2a7fff),
-    Color(0xFF5fbcd3),
-    Color(0xFF5fd3bc),
-    Color(0xFFffdd55),
-    Color(0xFFff9955),
-    Color(0xFFff80b2),
-    Color(0xFFfc3c3c),
+    Color(0xFF000080), // 0
+    Color(0xFF2a7fff), // 1
+    Color(0xFF5fbcd3), // 2
+    Color(0xFF5fd3bc), // 3
+    Color(0xFFffdd55), // 4
+    Color(0xFFff9955), // 5
+    Color(0xFFff80b2), // 6
+    Color(0xFFfc3c3c), // 7
 )
 
 
