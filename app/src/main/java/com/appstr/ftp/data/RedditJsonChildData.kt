@@ -29,6 +29,9 @@ data class RedditJsonChildData (
     @SerializedName("stickied")
     var stickied: Boolean = false,
 
+    @SerializedName("post_hint")
+    var postHint: String? = null,
+
     @SerializedName("media")
     @Embedded
     var media: Media? = null,
@@ -36,6 +39,9 @@ data class RedditJsonChildData (
     @SerializedName("preview")
     @Embedded
     var preview: Preview? = null,
+
+    @SerializedName("selftext")
+    var sefttext: String? = null,
 
     @SerializedName("crosspost_parent_list")
 //    @TypeConverters(ListCrossPostedConverter::class)

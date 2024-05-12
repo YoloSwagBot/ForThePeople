@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.appstr.ftp.activity.Screen
 import com.appstr.ftp.data.RedditJsonChild
 import com.appstr.ftp.network.FTPNetwork
 import com.appstr.ftp.util.FTPGson
@@ -13,9 +14,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.ArrayDeque
 
 
 class MainVM(appli: Application): AndroidViewModel(appli) {
+
+    private val _screenStack = MutableStateFlow(ArrayDeque<Screen>(listOf(Screen.MAIN_SCREEN)))
+    val screenStack: StateFlow<ArrayDeque<Screen>>
+        get() = _screenStack.asStateFlow()
 
     private val _dataset = MutableStateFlow(listOf<RedditJsonChild>())
     val dataset: StateFlow<List<RedditJsonChild>>
@@ -25,6 +31,10 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
+    private val _isLoadingMore = MutableStateFlow(true)
+    val isLoadingMore: StateFlow<Boolean>
+        get() = _isLoadingMore.asStateFlow()
+
 
     init {
         refresh()
@@ -32,7 +42,6 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
 
 
     fun refresh() {
-        Log.d("CarsonDebug", "MainVM -- refresh()")
         // Don't set _isRefreshing to true here as this will be called on init,
         //  the pull to refresh api will handle setting _isRefreshing to true
         viewModelScope.launch {
@@ -40,17 +49,39 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
             // Doing the data refresh here
             async(Dispatchers.IO) {
                 // Emitting the fetched data to the list
-//                _item.emit(foxService.getRandomFox().await())
                 val res = FTPNetwork.requestBadCopNoDonut()
 //                Log.d("CarsonDebug", res)
                 val arr = FTPGson.parseRedditResponse(res)
 //                Log.d("CarsonDebug", "arr: $arr")
-                arr.data?.children?.let { _dataset.emit(it) }
+                val newDataset = arrayListOf<RedditJsonChild>()
+                arr.data?.children?.let { newDataset.addAll(it) }
+                _dataset.emit(newDataset)
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
             _isRefreshing.emit(false)
         }
     }
 
+    fun loadMore(){
+
+    }
+
+    fun addScreen(screen: Screen){
+        Log.d("Carson", "MainVM - addScreen($screen)")
+        viewModelScope.launch {
+            val newStack = _screenStack.value.clone()
+            newStack.add(screen)
+            _screenStack.emit(newStack)
+        }
+    }
+
+    fun removeScreen(){
+        viewModelScope.launch {
+            val newStack = _screenStack.value.clone()
+            if (newStack.size == 1) return@launch
+            newStack.removeLast()
+            _screenStack.emit(newStack)
+        }
+    }
 
 }

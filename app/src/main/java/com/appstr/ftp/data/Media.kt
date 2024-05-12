@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Media(
-    @SerializedName("reddit_video")
+    @SerializedName("type")
     @Embedded
-    var redditVideo: RedditVideo? = null
+    var type: String? = null
 )
