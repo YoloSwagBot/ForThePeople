@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.appstr.ftp.activity.Screen
 import com.appstr.ftp.data.RedditJsonChild
+import com.appstr.ftp.ui.screen.content.Screen
 import com.appstr.ftp.ui.theme.blueGrey_100
 import com.appstr.ftp.ui.theme.blueGrey_200
 import com.appstr.ftp.ui.theme.defaultPalette
@@ -122,14 +122,14 @@ fun FeedItem(
                 onClick = {
                     Log.d("Carson", "onClick item ")
                     when (data.getItemType()) {
-                        POST_TYPE.HOSTED_VIDEO -> mainVM.addScreen(Screen.VIDEO_SCREEN)
-                        POST_TYPE.YOUTUBE_VIDEO -> mainVM.addScreen(Screen.VIDEO_SCREEN)
-                        POST_TYPE.OTHER_VIDEO -> mainVM.addScreen(Screen.VIDEO_SCREEN)
-                        POST_TYPE.GIF -> mainVM.addScreen(Screen.IMAGE_SCREEN)
-                        POST_TYPE.IMAGE -> mainVM.addScreen(Screen.IMAGE_SCREEN)
-                        POST_TYPE.TEXT -> mainVM.addScreen(Screen.TEXT_SCREEN)
-                        POST_TYPE.LINK -> mainVM.addScreen(Screen.TEXT_SCREEN)
-                        null -> mainVM.addScreen(Screen.TEXT_SCREEN)
+                        POST_TYPE.HOSTED_VIDEO -> mainVM.addScreen(Screen.VideoScreen(data.data))
+                        POST_TYPE.YOUTUBE_VIDEO -> mainVM.addScreen(Screen.VideoScreen(data.data))
+                        POST_TYPE.OTHER_VIDEO -> mainVM.addScreen(Screen.VideoScreen(data.data))
+                        POST_TYPE.GIF -> mainVM.addScreen(Screen.ImageScreen(data.data))
+                        POST_TYPE.IMAGE -> mainVM.addScreen(Screen.ImageScreen(data.data))
+                        POST_TYPE.TEXT -> mainVM.addScreen(Screen.TextScreen(data.data))
+                        POST_TYPE.LINK -> mainVM.addScreen(Screen.TextScreen(data.data))
+                        null -> mainVM.addScreen(Screen.TextScreen(data.data))
                     }
                 }
             ),

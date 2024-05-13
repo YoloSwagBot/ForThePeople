@@ -2,11 +2,12 @@ package com.appstr.ftp.ui.screen.content
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.appstr.ftp.data.RedditJsonChildData
 import com.appstr.ftp.ui.theme.blueGrey_300
 import com.appstr.ftp.viewmodel.MainVM
 
@@ -15,13 +16,17 @@ import com.appstr.ftp.viewmodel.MainVM
 fun TextScreen(
     modifier: Modifier = Modifier,
 
+    data: RedditJsonChildData?,
+
+    deviceViewSpecs: DeviceViewSpecs,
     mainVM: MainVM = viewModel()
 ){
-    Box(
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = blueGrey_300)
     ) {
+
 
 
         BackHandler {

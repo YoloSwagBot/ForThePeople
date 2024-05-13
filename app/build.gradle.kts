@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
 
+    // Coil
+    implementation(libs.coil.compose)
+
     // Gson (https://github.com/google/gson)
     implementation(libs.gson)
 

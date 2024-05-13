@@ -4,9 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.appstr.ftp.activity.Screen
 import com.appstr.ftp.data.RedditJsonChild
 import com.appstr.ftp.network.FTPNetwork
+import com.appstr.ftp.ui.screen.content.Screen
 import com.appstr.ftp.util.FTPGson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -19,7 +19,7 @@ import java.util.ArrayDeque
 
 class MainVM(appli: Application): AndroidViewModel(appli) {
 
-    private val _screenStack = MutableStateFlow(ArrayDeque<Screen>(listOf(Screen.MAIN_SCREEN)))
+    private val _screenStack = MutableStateFlow(ArrayDeque<Screen>(listOf(Screen.MainScreen())))
     val screenStack: StateFlow<ArrayDeque<Screen>>
         get() = _screenStack.asStateFlow()
 
