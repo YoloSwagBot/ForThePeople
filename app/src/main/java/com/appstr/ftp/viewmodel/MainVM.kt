@@ -1,7 +1,6 @@
 package com.appstr.ftp.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.appstr.ftp.data.RedditJsonChild
@@ -48,6 +47,7 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
             _isRefreshing.emit(true)
             // Doing the data refresh here
             async(Dispatchers.IO) {
+                _dataset.emit(arrayListOf())
                 // Emitting the fetched data to the list
                 val res = FTPNetwork.requestBadCopNoDonut()
 //                Log.d("CarsonDebug", res)
@@ -55,7 +55,7 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
 //                Log.d("CarsonDebug", "arr: $arr")
                 val newDataset = arrayListOf<RedditJsonChild>()
                 arr.data?.children?.let { newDataset.addAll(it) }
-                _dataset.emit(newDataset)
+                _dataset.emit(newDataset.filter { it.data?.stickied == false })
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
             _isRefreshing.emit(false)
@@ -67,7 +67,7 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
     }
 
     fun addScreen(screen: Screen){
-        Log.d("Carson", "MainVM - addScreen($screen)")
+//        Log.d("Carson", "MainVM - addScreen($screen)")
         viewModelScope.launch {
             val newStack = _screenStack.value.clone()
             newStack.add(screen)

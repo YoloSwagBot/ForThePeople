@@ -4,13 +4,13 @@ package com.appstr.ftp.util
 
 // https://www.reddit.com/r/Bad_Cop_No_Donut.json
 
-val vidsUrl     = "https://www.reddit.com/r/trailers.json"
-val storiesUrl  = "https://www.reddit.com/r/stories.json"
-val badCopsUrls = "https://www.reddit.com/r/Bad_Cop_No_Donut.json"
-val picsUrl     = "https://www.reddit.com/r/pics.json"
+const val vidsUrl     = "https://www.reddit.com/r/trailers.json"
+const val storiesUrl  = "https://www.reddit.com/r/stories.json"
+const val badCopsUrls = "https://www.reddit.com/r/Bad_Cop_No_Donut.json"
+const val picsUrl     = "https://www.reddit.com/r/pics.json"
 
-val baseUrl_reddit = picsUrl
+const val baseUrl_reddit = com.appstr.ftp.util.badCopsUrls
 
-val subreddit_BadCopNoDonut = "Bad_Cop_No_Donut"
+const val subreddit_BadCopNoDonut = "Bad_Cop_No_Donut"
 
 

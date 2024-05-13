@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -57,9 +56,6 @@ class MainActivity : ComponentActivity() {
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         statusBarHeight = getStatusBarHeight()
-
-        Log.d("Carson", "statusBarHeight_px: $statusBarHeight")
-        Log.d("Carson", "statusBarHeight_dp: ${statusBarHeight}")
     }
 
     private fun Activity.getStatusBarHeight(): Int {
@@ -117,12 +113,11 @@ fun MainContainer(
             derivedStateOf { DeviceViewSpecs(statusBarHeightDP.value, actionBarHeight.value) }
         }
 
-        Log.d("Carson", "statusbar: ${statusBarHeightDP.value} --- actionBarHeight: ${actionBarHeight.value}")
-
+//        Log.d("Carson", "statusbar: ${statusBarHeightDP.value} --- actionBarHeight: ${actionBarHeight.value}")
 
 
         val screens = mainVM.screenStack.collectAsStateWithLifecycle()
-        Log.d("Carson", "MainActivity - Screens - ${screens.value.size}")
+//        Log.d("Carson", "MainActivity - Screens - ${screens.value.size}")
         screens.value.forEach {
             when (it){
                 is Screen.MainScreen -> FeedContainer()

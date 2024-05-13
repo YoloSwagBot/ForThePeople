@@ -23,4 +23,8 @@ object FTPNetwork {
         return response.bodyAsText()
     }
 
+    suspend fun loadMore(): String {
+        return ""
+    }
+
 }

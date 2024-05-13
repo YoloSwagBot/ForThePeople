@@ -25,6 +25,7 @@ val defaultPalette = listOf<Color>(
 
 
 val transparent = Color(0x00000000)
+val trans20 = Color(0x20FFFFFF)
 
 val white = Color(0xFFFFFFFF)
 val black = Color(0xFF000000)

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.appstr.ftp.data.RedditJsonChildData
 import com.appstr.ftp.ui.theme.blueGrey_300
+import com.appstr.ftp.ui.theme.blueGrey_500
 import com.appstr.ftp.viewmodel.MainVM
 
 
@@ -26,6 +27,11 @@ fun VideoScreen(
             .fillMaxSize()
             .background(color = blueGrey_300)
     ) {
+        ScreenToolbar(
+            deviceViewSpecs = deviceViewSpecs,
+            title = data?.title ?: "n/a",
+            backgroundColor = blueGrey_500
+        )
 
 
         BackHandler {

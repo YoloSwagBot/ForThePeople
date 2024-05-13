@@ -3,11 +3,14 @@ package com.appstr.ftp.ui.screen.content
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.ripple.rememberRipple
@@ -19,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -26,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.appstr.ftp.data.RedditJsonChildData
 import com.appstr.ftp.ui.theme.blueGrey_900
-import com.appstr.ftp.ui.theme.red
 import com.appstr.ftp.ui.theme.white
 import com.appstr.ftp.viewmodel.MainVM
 
@@ -48,7 +51,7 @@ data class DeviceViewSpecs(
 
 @Composable
 fun ScreenToolbar(
-    toolbarHeight: Dp,
+    deviceViewSpecs: DeviceViewSpecs,
 
     title: String,
 
@@ -56,45 +59,51 @@ fun ScreenToolbar(
 
     mainVM: MainVM = viewModel()
 ){
-    
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(toolbarHeight)
-            .background(backgroundColor),
-        verticalAlignment = Alignment.Bottom
+            .height(deviceViewSpecs.statusBarHeight+deviceViewSpecs.toolbarHeight)
+            .background(backgroundColor)
     ) {
-        Icon(
+        Spacer(modifier = Modifier.height(deviceViewSpecs.statusBarHeight))
+        Row(
             modifier = Modifier
-                .size(56.dp)
-                .padding(12.dp)
-                .clickable(
-                    enabled = true,
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(
-                        color = white,
-                        bounded = true,
-                        radius = 28.dp
+                .fillMaxWidth()
+                .height(deviceViewSpecs.toolbarHeight),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                modifier = Modifier
+                    .size(56.dp)
+                    .padding(12.dp)
+                    .clickable(
+                        enabled = true,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(
+                            color = white,
+                            bounded = true,
+                            radius = 28.dp
+                        ),
+                        onClick = {
+                            mainVM.removeScreen()
+                        }
                     ),
-                    onClick = {
-                        mainVM.removeScreen()
-                    }
-                ),
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "Back Button",
-            tint = blueGrey_900
-        )
-        Text(
-            modifier = Modifier
-                .height(56.dp)
-                .padding(start = 64.dp)
-                .background(red),
-            text = title,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Back Button",
+                tint = blueGrey_900
+            )
+            Text(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .align(Alignment.CenterVertically),
+                text = title,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Start
+            )
+        }
     }
 }
 
