@@ -42,6 +42,7 @@ sealed class Screen(
     class TextScreen(data: RedditJsonChildData?): Screen(data)
     class ImageScreen(data: RedditJsonChildData?): Screen(data)
     class VideoScreen(data: RedditJsonChildData?): Screen(data)
+    class WebpageScreen(data: RedditJsonChildData?): Screen(data)
 }
 
 data class DeviceViewSpecs(

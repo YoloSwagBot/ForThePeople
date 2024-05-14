@@ -31,6 +31,7 @@ import com.appstr.ftp.ui.screen.content.ImageScreen
 import com.appstr.ftp.ui.screen.content.Screen
 import com.appstr.ftp.ui.screen.content.TextScreen
 import com.appstr.ftp.ui.screen.content.VideoScreen
+import com.appstr.ftp.ui.screen.content.WebpageScreen
 import com.appstr.ftp.ui.screen.feed.FeedContainer
 import com.appstr.ftp.ui.theme.FTPTheme
 import com.appstr.ftp.ui.theme.defaultPalette
@@ -124,6 +125,7 @@ fun MainContainer(
                 is Screen.TextScreen -> TextScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
                 is Screen.ImageScreen -> ImageScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
                 is Screen.VideoScreen -> VideoScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
+                is Screen.WebpageScreen -> WebpageScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
                 else -> {}
             }
         }
