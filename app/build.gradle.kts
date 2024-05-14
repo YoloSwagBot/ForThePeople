@@ -84,6 +84,7 @@ dependencies {
 
     // Video Players
     implementation(libs.androidx.media3.exoplayer)
+        // https://github.com/PierfrancescoSoffritti/android-youtube-player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
     // Flow.collectAsStateWithLifecycle()

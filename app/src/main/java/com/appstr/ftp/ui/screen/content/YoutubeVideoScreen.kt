@@ -24,7 +24,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 
 @Composable
-fun VideoScreen(
+fun YoutubeVideoScreen(
     modifier: Modifier = Modifier,
 
     data: RedditJsonChildData?,
@@ -61,7 +61,7 @@ fun VideoScreen(
                             object : AbstractYouTubePlayerListener() {
                                 override fun onReady(youTubePlayer: YouTubePlayer) {
                                     super.onReady(youTubePlayer)
-                                    youTubePlayer.loadVideo("hAvp002DRzk", 0f)
+                                    youTubePlayer.loadVideo(data.parseYoutubeVideoId(), 0f)
                                 }
                             }
                         )
@@ -82,4 +82,35 @@ fun VideoScreen(
     }
 }
 
+fun RedditJsonChildData?.parseYoutubeVideoId(): String {
+    val url = this?.url ?: return ""
 
+    val watchEndIdx = url.indexOf("/watch?v=")
+    if (watchEndIdx != -1){
+        val watchSize = 9
+        var watchIdEnd = url.indexOf("&", startIndex = watchEndIdx)
+//        Log.d("Carson", "watchEndIdx: $watchEndIdx -- watchIdEnd: $watchIdEnd")
+        if (watchIdEnd <= 0) watchIdEnd = url.lastIndex
+        val watchId = url.substring(watchEndIdx+watchSize..watchIdEnd)
+//        Log.d("Carson", "calcing watch id:   $watchId")
+        return watchId
+    }
+
+    var subStrIdx = url.indexOf("youtu.be/")
+    var subStrSize = 9
+    if (subStrIdx == -1){
+        subStrIdx = url.indexOf("youtube.com/")
+        subStrSize = 12
+    }
+    if (subStrIdx == -1){
+        return ""
+    }
+    // find ? index
+    var idx = subStrIdx + subStrSize
+    while (idx in url.indices){
+        if (url[idx] == '?') break
+        idx++
+    }
+//    Log.d("Carson", url.substring(subStrIdx+subStrSize until idx))
+    return url.substring(subStrIdx+subStrSize until idx)
+}

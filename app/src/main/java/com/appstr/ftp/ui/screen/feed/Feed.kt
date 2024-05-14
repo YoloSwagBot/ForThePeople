@@ -172,7 +172,7 @@ fun FeedItem(
     ){
         when (data.getItemType()) {
             POST_TYPE.HOSTED_VIDEO -> FeedItemText(data = data)
-            POST_TYPE.YOUTUBE_VIDEO -> FeedItemVideo(data = data)
+            POST_TYPE.YOUTUBE_VIDEO -> FeedItemYoutubeVideo(data = data)
             POST_TYPE.OTHER_VIDEO -> FeedItemText(data = data)
             POST_TYPE.GIF -> FeedItemImage(data = data)
             POST_TYPE.IMAGE -> FeedItemImage(data = data)
@@ -279,7 +279,7 @@ fun FeedItemImage(
 }
 
 @Composable
-fun FeedItemVideo(
+fun FeedItemYoutubeVideo(
     data: RedditJsonChild
 ){
 
@@ -328,7 +328,8 @@ fun FeedItemVideo(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center
         )
         Box(
             modifier = Modifier
