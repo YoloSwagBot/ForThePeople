@@ -463,7 +463,7 @@ fun RedditJsonChild.getItemType(): POST_TYPE = when (this.data?.postHint){
     "rich:video" -> POST_TYPE.YOUTUBE_VIDEO
     "self" -> POST_TYPE.TEXT
     "link" -> POST_TYPE.LINK
-    else -> POST_TYPE.LINK
+    else -> POST_TYPE.TEXT
 }
 
 // =================================================================================================================

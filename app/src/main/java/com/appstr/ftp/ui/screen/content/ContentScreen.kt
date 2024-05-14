@@ -36,7 +36,7 @@ import com.appstr.ftp.viewmodel.MainVM
 
 sealed class Screen(
     val data: RedditJsonChildData? = null,
-    val deviceViewSpecs: DeviceViewSpecs = DeviceViewSpecs(32.dp,56.dp)
+    val deviceViewSpecs: DeviceViewSpecs = DeviceViewSpecs(32.dp,56.dp, true)
 ) {
     class MainScreen: Screen()
     class TextScreen(data: RedditJsonChildData?): Screen(data)
@@ -47,7 +47,8 @@ sealed class Screen(
 
 data class DeviceViewSpecs(
     val statusBarHeight: Dp,
-    val toolbarHeight: Dp
+    val toolbarHeight: Dp,
+    val isPortrait: Boolean
 )
 
 @Composable

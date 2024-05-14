@@ -82,8 +82,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
-    // ExoPlayer
+    // Video Players
     implementation(libs.androidx.media3.exoplayer)
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
     // Flow.collectAsStateWithLifecycle()
     implementation(libs.androidx.lifecycle.runtime.compose)

@@ -111,7 +111,9 @@ fun MainContainer(
         }
         // (3/3)
         val deviceViewSpecs = remember {
-            derivedStateOf { DeviceViewSpecs(statusBarHeightDP.value, actionBarHeight.value) }
+            derivedStateOf {
+                DeviceViewSpecs(statusBarHeightDP.value, actionBarHeight.value, isPortrait = orientation == Configuration.ORIENTATION_PORTRAIT)
+            }
         }
 
 //        Log.d("Carson", "statusbar: ${statusBarHeightDP.value} --- actionBarHeight: ${actionBarHeight.value}")
