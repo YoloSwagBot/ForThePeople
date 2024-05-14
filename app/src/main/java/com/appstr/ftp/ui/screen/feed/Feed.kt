@@ -165,7 +165,7 @@ fun FeedItem(
                         POST_TYPE.IMAGE -> mainVM.addScreen(Screen.ImageScreen(data.data))
                         POST_TYPE.TEXT -> mainVM.addScreen(Screen.TextScreen(data.data))
                         POST_TYPE.LINK -> mainVM.addScreen(Screen.WebpageScreen(data.data))
-                        null -> mainVM.addScreen(Screen.TextScreen(data.data))
+                        else -> mainVM.addScreen(Screen.TextScreen(data.data))
                     }
                 }
             ),
@@ -178,7 +178,7 @@ fun FeedItem(
             POST_TYPE.IMAGE -> FeedItemImage(data = data)
             POST_TYPE.LINK -> FeedItemLink(data = data)
             POST_TYPE.TEXT -> FeedItemText(data = data)
-            null -> FeedItemText(data = data)
+            else -> FeedItemText(data = data)
         }
     }
 }
@@ -458,7 +458,7 @@ enum class POST_TYPE {
     LINK
 }
 
-fun RedditJsonChild.getItemType(): POST_TYPE? = when (this.data?.postHint){
+fun RedditJsonChild.getItemType(): POST_TYPE = when (this.data?.postHint){
     "image" -> POST_TYPE.IMAGE
     "rich:video" -> POST_TYPE.YOUTUBE_VIDEO
     "self" -> POST_TYPE.TEXT

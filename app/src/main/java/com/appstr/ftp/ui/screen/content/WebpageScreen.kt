@@ -1,11 +1,14 @@
 package com.appstr.ftp.ui.screen.content
 
+import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.appstr.ftp.data.RedditJsonChildData
 import com.appstr.ftp.ui.theme.blueGrey_300
@@ -32,10 +35,29 @@ fun WebpageScreen(
             title = data?.title ?: "n/a",
             backgroundColor = blueGrey_500
         )
-
+        FTPWebView(data?.url ?: "")
 
         BackHandler {
             mainVM.removeScreen()
         }
     }
+}
+
+@Composable
+fun FTPWebView(
+    url: String
+){
+
+    AndroidView(
+        modifier = Modifier.fillMaxSize(),
+        factory = {
+        WebView(it).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        }
+    }, update = {
+        it.loadUrl(url)
+    })
 }
