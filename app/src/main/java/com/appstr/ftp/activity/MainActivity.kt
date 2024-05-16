@@ -120,14 +120,15 @@ fun MainContainer(
 
 
         val screens = mainVM.screenStack.collectAsStateWithLifecycle()
-//        Log.d("Carson", "MainActivity - Screens - ${screens.value.size}")
         screens.value.forEach {
             when (it){
                 is Screen.MainScreen -> FeedContainer()
                 is Screen.TextScreen -> TextScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
                 is Screen.ImageScreen -> ImageScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
                 is Screen.VideoScreen -> YoutubeVideoScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
-                is Screen.WebpageScreen -> WebpageScreen(data = it.data, deviceViewSpecs = deviceViewSpecs.value)
+                is Screen.WebpageScreen -> WebpageScreen(
+                    data = it.data,
+                    deviceViewSpecs = deviceViewSpecs.value)
                 else -> {}
             }
         }

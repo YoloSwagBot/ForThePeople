@@ -87,6 +87,9 @@ dependencies {
         // https://github.com/PierfrancescoSoffritti/android-youtube-player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 
+    // Palette
+    implementation(libs.androidx.palette.ktx)
+
     // Flow.collectAsStateWithLifecycle()
     implementation(libs.androidx.lifecycle.runtime.compose)
 
