@@ -1,6 +1,5 @@
 package com.appstr.ftp.ui.screen.feed.items
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +47,7 @@ import kotlinx.coroutines.Dispatchers
 fun FeedItemYoutubeVideo(
     data: RedditJsonChild
 ){
-    Log.d("Carson", "FeedItemYoutubeVideo: ${data.data?.url ?: "unknown"}")
+//    Log.d("Carson", "FeedItemYoutubeVideo: ${data.data?.url ?: "unknown"}")
 
 
     // Build an ImageRequest with Coil
@@ -108,7 +107,7 @@ fun FeedItemYoutubeVideo(
     }
 
     LaunchedEffect(asyncPainter.state) {
-        Log.d("Carson", "LAUNCHED_EFFECT: asyncPainter.state: ${asyncPainter.state.javaClass.simpleName}")
+//        Log.d("Carson", "LAUNCHED_EFFECT: asyncPainter.state: ${asyncPainter.state.javaClass.simpleName}")
     }
 
     val palette = remember {
@@ -128,7 +127,7 @@ fun FeedItemYoutubeVideo(
             } ?: transparent
         }
     }
-    Log.d("Carson", "isPalette_Null: ${palette.value == null}   ---   isThumbnailBg_transparent: ${thumbnailBG.value == transparent}")
+//    Log.d("Carson", "isPalette_Null: ${palette.value == null}   ---   isThumbnailBg_transparent: ${thumbnailBG.value == transparent}")
 
     Column(
         modifier = Modifier

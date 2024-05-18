@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +31,6 @@ import coil.request.SuccessResult
 import com.appstr.ftp.data.RedditJsonChild
 import com.appstr.ftp.ui.screen.feed.linkFeedItemContentHeight
 import com.appstr.ftp.ui.screen.feed.linkFeedItemHeight
-import com.appstr.ftp.ui.screen.feed.shimmerLoadingAnimation
 import com.appstr.ftp.ui.screen.feed.titleAreaHeight
 import com.appstr.ftp.ui.theme.blue_600
 import kotlinx.coroutines.Dispatchers
@@ -44,18 +41,14 @@ fun FeedItemLink(
     data: RedditJsonChild
 ){
 
-    val showLoading = remember { mutableStateOf(true) }
-
     // Build an ImageRequest with Coil
     val listener = object : ImageRequest.Listener {
         override fun onError(request: ImageRequest, result: ErrorResult) {
             super.onError(request, result)
-            showLoading.value = false
         }
 
         override fun onSuccess(request: ImageRequest, result: SuccessResult) {
             super.onSuccess(request, result)
-            showLoading.value = false
         }
     }
     val imageUrl = data.data?.thumbnail ?: ""
@@ -100,7 +93,6 @@ fun FeedItemLink(
                 modifier = Modifier
                     .size(linkFeedItemContentHeight)
                     .padding(8.dp)
-                    .shimmerLoadingAnimation(showLoading.value)
                     .clip(RoundedCornerShape(8.dp))
                     .align(Alignment.CenterEnd),
                 model = imageRequest,

@@ -22,7 +22,6 @@ import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.appstr.ftp.data.RedditJsonChild
-import com.appstr.ftp.ui.screen.feed.shimmerLoadingAnimation
 import com.appstr.ftp.ui.screen.feed.titleAreaHeight
 import kotlinx.coroutines.Dispatchers
 
@@ -81,8 +80,7 @@ fun FeedItemImage(
         // Image
         AsyncImage(
             modifier = Modifier
-                .fillMaxSize()
-                .shimmerLoadingAnimation(showLoading.value),
+                .fillMaxSize(),
             model = imageRequest,
             contentDescription = "image",
             contentScale = ContentScale.Fit

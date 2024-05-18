@@ -30,9 +30,9 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    private val _isLoadingMore = MutableStateFlow(true)
-    val isLoadingMore: StateFlow<Boolean>
-        get() = _isLoadingMore.asStateFlow()
+
+    // "after" field in requests
+    private var lastRequestId = ""
 
 
     init {
@@ -52,10 +52,17 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
                 val res = FTPNetwork.requestBadCopNoDonut()
 //                Log.d("CarsonDebug", res)
                 val arr = FTPGson.parseRedditResponse(res)
+                lastRequestId = arr.data?.after ?: ""
 //                Log.d("CarsonDebug", "arr: $arr")
                 val newDataset = arrayListOf<RedditJsonChild>()
-                arr.data?.children?.let { newDataset.addAll(it) }
-                _dataset.emit(newDataset.filter { it.data?.stickied == false })
+                arr.data?.children?.let{
+                    newDataset += it.filter { itt ->
+                        itt.data?.stickied == false
+                            && (itt.data?.postHint != "self")
+                            && (itt.data?.postHint?.isNotEmpty() == true)
+                    }
+                }
+                _dataset.emit(newDataset)
             }.await()
             // Set _isRefreshing to false to indicate the refresh is complete
             _isRefreshing.emit(false)
@@ -63,7 +70,22 @@ class MainVM(appli: Application): AndroidViewModel(appli) {
     }
 
     fun loadMore(){
-
+        viewModelScope.launch {
+            async(Dispatchers.IO) {
+                val newDataset: MutableList<RedditJsonChild> = _dataset.value.toMutableList()
+                val res = FTPNetwork.loadMore(lastRequestId)
+                val arr = FTPGson.parseRedditResponse(res)
+                lastRequestId = arr.data?.after ?: ""
+                arr.data?.children?.let{
+                    newDataset += it.filter { itt ->
+                        itt.data?.stickied == false
+                            && (itt.data?.postHint != "self")
+                            && (itt.data?.postHint?.isNotEmpty() == true)
+                    }
+                }
+                _dataset.emit(newDataset)
+            }.await()
+        }
     }
 
     fun addScreen(screen: Screen){
